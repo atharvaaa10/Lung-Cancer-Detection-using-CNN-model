@@ -27,33 +27,17 @@
 
 ## 🏗️ System Architecture
 
-### 🌐 1. Client Layer (Frontend)
-- **Interface**: Responsive Web UI built with **HTML5, TailwindCSS, & pure JavaScript**.
-- **Action**: User uploads a CT Scan image (`.png` or `.jpg`).
-- **Transfer**: Image is sent via HTTP POST to the API Gateway.
+### System Architecture Flowchart
 
-### ⚙️ 2. API Gateway (Backend)
-- **Framework**: **Flask REST API** (`app.py`).
-- **Endpoint**: `/predict` securely receives the image payload.
-- **Handling**: Validates the upload and saves it locally as a temporary file for processing.
-
-### 🛠️ 3. Data Processing Pipeline
-- **Tools**: **Torchvision** & **PIL** (`preprocessing.py`).
-- **Transformations**:
-  - Converts image to **Grayscale** (1 channel).
-  - Resizes to strictly **256x256 pixels**.
-  - Transforms into a normalized **PyTorch Tensor** `(1, 1, 256, 256)`.
-
-### 🧠 4. AI Inference Engine
-- **Model Architecture**: Custom-modified **ResNet18 CNN**.
-- **Weights**: Loads best-performing state dictionary (`lung_model_6class_best.pth`).
-- **Classification**: Performs a forward pass and applies a **Softmax** activation to calculate probabilities across the 6 cancer classes.
-- **Decision**: Uses `argmax` to select the class with the highest confidence.
-
-### 📤 5. Response Layer
-- **Data Delivery**: API constructs a JSON payload containing the `prediction` (String) and `confidence score` (Percentage).
-- **Cleanup**: The temporary server-side image file is permanently deleted.
-- **UI Update**: The frontend dynamically renders the results to the user on a visually polished "Result Card".
+```mermaid
+graph TD
+    UserUpload[User Uploads CT Scan Image] --> FlaskAPI[Flask REST API Endpoint /predict]
+    FlaskAPI --> ImagePrep[Image Preprocessing Grayscale Resize Tensor]
+    ImagePrep --> CNNModel[PyTorch ResNet18 CNN Model]
+    CNNModel --> Classification[Softmax Probability Classification]
+    Classification --> JSONResponse[JSON Response Prediction & Confidence]
+    JSONResponse --> UI[Display Results on Web Interface]
+```
 
 ---
 
