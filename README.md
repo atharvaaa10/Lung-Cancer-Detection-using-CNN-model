@@ -35,30 +35,30 @@ flowchart TD
     classDef ml fill:#2196F3,stroke:#1976D2,color:white,font-weight:bold
     classDef data fill:#9C27B0,stroke:#7B1FA2,color:white,font-weight:bold
     
-    subgraph "Client Layer"
-        UI("Responsive Web Interface<br/>Tailwind CSS + JS") ::: frontend
-        UI_Upload("User Uploads CT Scan (.png/.jpg)") ::: frontend
+    subgraph Client Layer
+        UI[Responsive Web Interface<br/>Tailwind CSS + JS] ::: frontend
+        UI_Upload[User Uploads CT Scan png/jpg] ::: frontend
         UI --> UI_Upload
     end
 
-    subgraph "Backend Framework"
-        Flask("Flask REST API Gateway<br/>Endpoint: /predict") ::: api
+    subgraph Backend Framework
+        Flask[Flask REST API Gateway<br/>Endpoint: /predict] ::: api
     end
 
-    subgraph "Data Processing Pipeline"
-        PreProc("Image Preprocessing<br/>- Grayscale Conversion<br/>- Resize 256x256<br/>- Tensor Transformation") ::: data
+    subgraph Data Processing Pipeline
+        PreProc[Image Preprocessing<br/>- Grayscale Conversion<br/>- Resize 256x256<br/>- Tensor Transformation] ::: data
     end
 
-    subgraph "AI Inference Engine"
-        Model("PyTorch CNN Model<br/>Modified ResNet18") ::: ml
-        Weights[("Trained Weights<br/>lung_model_6class_best.pth")] ::: ml
+    subgraph AI Inference Engine
+        Model[PyTorch CNN Model<br/>Modified ResNet18] ::: ml
+        Weights[(Trained Weights<br/>lung_model_6class_best.pth)] ::: ml
         Model --- Weights
-        Eval("Classification<br/>Softmax Activation") ::: ml
+        Eval[Classification<br/>Softmax Activation] ::: ml
     end
 
-    subgraph "Response Layer"
-        JSON("JSON Response<br/>prediction, confidence score") ::: api
-        ResultUI("Display Analysis Results in Browser") ::: frontend
+    subgraph Response Layer
+        JSON[JSON Response<br/>prediction, confidence score] ::: api
+        ResultUI[Display Analysis Results in Browser] ::: frontend
     end
 
     %% Data Flow
