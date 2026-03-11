@@ -27,48 +27,33 @@
 
 ## 🏗️ System Architecture
 
-```mermaid
-flowchart TD
-    %% Define Styles
-    classDef frontend fill:#4CAF50,stroke:#388E3C,color:white,font-weight:bold
-    classDef api fill:#FF9800,stroke:#F57C00,color:white,font-weight:bold
-    classDef ml fill:#2196F3,stroke:#1976D2,color:white,font-weight:bold
-    classDef data fill:#9C27B0,stroke:#7B1FA2,color:white,font-weight:bold
-    
-    subgraph Client Layer
-        UI[Responsive Web Interface<br/>Tailwind CSS + JS] ::: frontend
-        UI_Upload[User Uploads CT Scan png/jpg] ::: frontend
-        UI --> UI_Upload
-    end
+### 🌐 1. Client Layer (Frontend)
+- **Interface**: Responsive Web UI built with **HTML5, TailwindCSS, & pure JavaScript**.
+- **Action**: User uploads a CT Scan image (`.png` or `.jpg`).
+- **Transfer**: Image is sent via HTTP POST to the API Gateway.
 
-    subgraph Backend Framework
-        Flask[Flask REST API Gateway<br/>Endpoint: /predict] ::: api
-    end
+### ⚙️ 2. API Gateway (Backend)
+- **Framework**: **Flask REST API** (`app.py`).
+- **Endpoint**: `/predict` securely receives the image payload.
+- **Handling**: Validates the upload and saves it locally as a temporary file for processing.
 
-    subgraph Data Processing Pipeline
-        PreProc[Image Preprocessing<br/>- Grayscale Conversion<br/>- Resize 256x256<br/>- Tensor Transformation] ::: data
-    end
+### 🛠️ 3. Data Processing Pipeline
+- **Tools**: **Torchvision** & **PIL** (`preprocessing.py`).
+- **Transformations**:
+  - Converts image to **Grayscale** (1 channel).
+  - Resizes to strictly **256x256 pixels**.
+  - Transforms into a normalized **PyTorch Tensor** `(1, 1, 256, 256)`.
 
-    subgraph AI Inference Engine
-        Model[PyTorch CNN Model<br/>Modified ResNet18] ::: ml
-        Weights[(Trained Weights<br/>lung_model_6class_best.pth)] ::: ml
-        Model --- Weights
-        Eval[Classification<br/>Softmax Activation] ::: ml
-    end
+### 🧠 4. AI Inference Engine
+- **Model Architecture**: Custom-modified **ResNet18 CNN**.
+- **Weights**: Loads best-performing state dictionary (`lung_model_6class_best.pth`).
+- **Classification**: Performs a forward pass and applies a **Softmax** activation to calculate probabilities across the 6 cancer classes.
+- **Decision**: Uses `argmax` to select the class with the highest confidence.
 
-    subgraph Response Layer
-        JSON[JSON Response<br/>prediction, confidence score] ::: api
-        ResultUI[Display Analysis Results in Browser] ::: frontend
-    end
-
-    %% Data Flow
-    UI_Upload -- HTTP POST (Image Data) --> Flask
-    Flask --> PreProc
-    PreProc -- Preprocessed Tensor 1, 1, 256, 256 --> Model
-    Model --> Eval
-    Eval -- Argmax --> JSON
-    JSON -- HTTP Response --> ResultUI
-```
+### 📤 5. Response Layer
+- **Data Delivery**: API constructs a JSON payload containing the `prediction` (String) and `confidence score` (Percentage).
+- **Cleanup**: The temporary server-side image file is permanently deleted.
+- **UI Update**: The frontend dynamically renders the results to the user on a visually polished "Result Card".
 
 ---
 
