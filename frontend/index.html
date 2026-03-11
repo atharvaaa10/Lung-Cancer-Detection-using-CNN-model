@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BreatheEasy - Advanced Lung Cancer Detection & Awareness</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            'inter': ['Inter', 'sans-serif'],
+          },
+          colors: {
+            medical: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              200: '#bae6fd',
+              300: '#7dd3fc',
+              400: '#38bdf8',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              700: '#0369a1',
+              800: '#075985',
+              900: '#0c4a6e',
+            },
+            success: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              200: '#bbf7d0',
+              300: '#86efac',
+              400: '#4ade80',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+              800: '#166534',
+              900: '#14532d',
+            },
+            warning: {
+              50: '#fffbeb',
+              100: '#fef3c7',
+              200: '#fde68a',
+              300: '#fcd34d',
+              400: '#fbbf24',
+              500: '#f59e0b',
+              600: '#d97706',
+              700: '#b45309',
+              800: '#92400e',
+              900: '#78350f',
+            },
+            danger: {
+              50: '#fef2f2',
+              100: '#fee2e2',
+              200: '#fecaca',
+              300: '#fca5a5',
+              400: '#f87171',
+              500: '#ef4444',
+              600: '#dc2626',
+              700: '#b91c1c',
+              800: '#991b1b',
+              900: '#7f1d1d',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .gradient-bg {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .glass-effect {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .dark .glass-effect {
+      background: rgba(31, 41, 55, 0.95);
+      border: 1px solid rgba(75, 85, 99, 0.2);
+    }
+
+    .animate-fade-in {
+      animation: fadeIn 0.6s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-slide-up {
+      animation: slideUp 0.8s ease-out;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body class="font-inter bg-gray-50 text-gray-900 antialiased">
+  <!-- Header -->
+  <header class="fixed top-0 left-0 right-0 z-50 glass-effect border-b border-gray-200 dark:border-gray-700">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <div class="flex items-center">
+          <div class="text-2xl font-bold gradient-text">
+            <i class="fas fa-lungs mr-2"></i>BreatheEasy
+          </div>
+        </div>
+
+        <div class="hidden md:flex items-center space-x-8">
+          <!-- Header nav links -->
+          <a href="#ai-tool"
+            class="text-gray-600 hover:text-medical-600 dark:text-gray-300 dark:hover:text-medical-400 font-medium transition-colors hover:border-b-2 hover:border-medical-400 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-medical-400">AI
+            Detection</a>
+          <a href="chat.html"
+            class="text-gray-600 hover:text-medical-600 dark:text-gray-300 dark:hover:text-medical-400 font-medium transition-colors hover:border-b-2 hover:border-medical-400 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-medical-400">
+            <i class="fas fa-robot mr-1"></i>AI Assistant
+          </a>
+          <a href="#about"
+            class="text-gray-600 hover:text-medical-600 dark:text-gray-300 dark:hover:text-medical-400 font-medium transition-colors hover:border-b-2 hover:border-medical-400 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-medical-400">About</a>
+          <a href="#prevention"
+            class="text-gray-600 hover:text-medical-600 dark:text-gray-300 dark:hover:text-medical-400 font-medium transition-colors hover:border-b-2 hover:border-medical-400 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-medical-400">Prevention</a>
+          <a href="#disclaimer"
+            class="text-gray-600 hover:text-medical-600 dark:text-gray-300 dark:hover:text-medical-400 font-medium transition-colors hover:border-b-2 hover:border-medical-400 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-medical-400">Disclaimer</a>
+        </div>
+
+        <button onclick="toggleTheme()"
+          class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+          <i class="fas fa-moon text-gray-600 dark:text-gray-300" id="theme-icon"></i>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="pt-16">
+    <!-- Hero Section - AI Tool -->
+    <section id="ai-tool" class="gradient-bg text-white py-20 relative overflow-hidden">
+      <div class="absolute inset-0 bg-black opacity-10"></div>
+      <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 animate-fade-in">
+            <i class="fas fa-robot mr-4"></i>AI-Powered Lung Cancer Detection
+          </h1>
+          <p class="text-xl md:text-2xl mb-12 max-w-3xl mx-auto opacity-90 leading-relaxed">
+            Advanced machine learning technology for preliminary CT scan analysis.
+            Get instant insights to support early detection and medical consultation.
+          </p>
+
+          <div
+            class="glass-effect rounded-3xl p-8 md:p-12 max-w-4xl mx-auto shadow-2xl animate-slide-up border border-white/20 transition-all duration-300 hover:shadow-3xl hover:-translate-y-1 hover:border-medical-400 bg-white/60 dark:bg-gray-800/80">
+            <!-- Upload Section -->
+            <div class="mb-12">
+              <div class="flex items-center justify-center mb-8">
+                <div
+                  class="w-16 h-16 bg-gradient-to-r from-medical-500 to-medical-600 rounded-2xl flex items-center justify-center mr-6 shadow-xl">
+                  <i class="fas fa-cloud-upload-alt text-white text-3xl"></i>
+                </div>
+                <div class="text-left">
+                  <h3 class="text-2xl font-bold text-white">Step 1: Upload CT Scan</h3>
+                  <p class="text-white/80">Select your medical image for analysis</p>
+                </div>
+              </div>
+
+              <label for="imageInput"
+                class="group inline-flex items-center px-12 py-6 bg-gradient-to-r from-medical-500 to-medical-600 text-white font-semibold text-2xl rounded-3xl cursor-pointer hover:from-medical-600 hover:to-medical-700 transform hover:scale-105 hover:shadow-2xl transition-all duration-300 shadow-xl border border-white/20">
+                <i
+                  class="fas fa-cloud-upload-alt mr-6 text-3xl group-hover:scale-110 transition-transform duration-300 animate-bounce"></i>
+                Choose CT Scan Image
+                <div class="ml-6 text-sm opacity-80 font-normal">Click to Upload</div>
+              </label>
+              <input type="file" id="imageInput" accept="image/*" class="hidden" />
+
+              <div id="fileInfo"
+                class="hidden mt-8 p-6 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-lg">
+                <div class="flex items-center">
+                  <i class="fas fa-file-image text-medical-300 mr-4 text-2xl"></i>
+                  <span id="fileName" class="text-white font-medium text-lg"></span>
+                  <div class="ml-auto">
+                    <div class="w-3 h-3 bg-success-400 rounded-full animate-pulse"></div>
+                  </div>
+                </div>
+              </div>
+
+              <img id="preview" src="#" alt="Preview"
+                class="hidden w-full max-w-xl mx-auto mt-8 rounded-3xl border-4 border-white/30 shadow-2xl object-cover" />
+            </div>
+
+            <!-- Analysis Section -->
+            <div class="mb-12">
+              <div class="flex items-center justify-center mb-8">
+                <div
+                  class="w-16 h-16 bg-gradient-to-r from-success-500 to-success-600 rounded-2xl flex items-center justify-center mr-6 shadow-xl">
+                  <i class="fas fa-brain text-white text-3xl"></i>
+                </div>
+                <div class="text-left">
+                  <h3 class="text-2xl font-bold text-white">Step 2: AI Analysis</h3>
+                  <p class="text-white/80">Advanced machine learning processing</p>
+                </div>
+              </div>
+
+              <div class="flex justify-center">
+                <button id="predictBtn"
+                  class="hidden group px-12 py-6 bg-gradient-to-r from-success-500 to-success-600 text-white font-semibold text-2xl rounded-3xl hover:from-success-600 hover:to-success-700 transform hover:scale-105 hover:shadow-2xl transition-all duration-300 shadow-xl border border-white/20">
+                  <i
+                    class="fas fa-search mr-6 text-3xl group-hover:scale-110 transition-transform duration-300 animate-spin"></i>
+                  Analyze Image
+                  <div class="ml-6 text-sm opacity-80 font-normal">AI-Powered Analysis</div>
+                </button>
+              </div>
+            </div>
+
+            <!-- Custom Medical Loader -->
+            <div id="spinner" class="hidden text-center py-16">
+              <div class="inline-block relative">
+                <div class="w-24 h-24 border-4 border-white/20 border-t-white rounded-full animate-spin mb-8"></div>
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <i class="fas fa-lungs text-white/60 text-4xl animate-pulse"></i>
+                </div>
+              </div>
+              <div class="text-white/90 text-xl font-medium mb-4">
+                <i class="fas fa-cog fa-spin mr-4 text-2xl"></i>Analyzing your CT scan...
+              </div>
+              <div class="text-white/70 text-lg">This may take a few moments</div>
+              <div class="mt-4 text-white/50 text-sm">Processing with advanced AI algorithms</div>
+            </div>
+
+            <!-- Results Section -->
+            <div id="resultCard"
+              class="hidden bg-white/95 backdrop-blur-md rounded-3xl p-12 shadow-2xl border border-white/30">
+              <div class="flex items-center justify-center mb-8">
+                <div
+                  class="w-16 h-16 bg-gradient-to-r from-medical-500 to-medical-600 rounded-2xl flex items-center justify-center mr-6 shadow-xl">
+                  <i class="fas fa-chart-line text-white text-3xl"></i>
+                </div>
+                <div class="text-left">
+                  <h3 class="text-2xl font-bold text-gray-900">Step 3: Analysis Results</h3>
+                  <p class="text-gray-600">AI-powered preliminary screening</p>
+                </div>
+              </div>
+              <div class="result-text text-xl leading-relaxed mb-8" id="resultText"></div>
+              <div class="flex flex-col sm:flex-row gap-6 justify-center">
+                <button onclick="resetApp()"
+                  class="group px-8 py-4 bg-gray-100 hover:bg-medical-50 dark:bg-gray-800 hover:bg-opacity-80 text-gray-700 font-semibold rounded-2xl transition-all duration-300 shadow-lg hover:shadow-2xl transform hover:-translate-y-1 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-medical-400">
+                  <i
+                    class="fas fa-redo mr-3 group-hover:rotate-180 transition-transform duration-500 animate-spin"></i>Reset
+                </button>
+                <button onclick="addAnother()"
+                  class="group px-8 py-4 bg-gradient-to-r from-medical-100 to-success-100 hover:from-medical-200 hover:to-success-200 text-medical-700 font-semibold rounded-2xl transition-all duration-300 shadow-lg hover:shadow-2xl transform hover:-translate-y-1 border border-medical-200 focus:outline-none focus:ring-2 focus:ring-medical-400">
+                  <i
+                    class="fas fa-plus mr-3 group-hover:scale-110 transition-transform duration-300 animate-bounce"></i>Add
+                  Another
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Lung Cancer -->
+    <section id="about" class="py-20 bg-white dark:bg-gray-900">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <!-- Section header icons -->
+          <h2 class="text-4xl md:text-5xl font-bold gradient-text mb-6 flex items-center justify-center">
+            <i class="fas fa-info-circle mr-4 group-hover:animate-bounce transition-all"></i>Understanding Lung Cancer
+          </h2>
+          <p class="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed">
+            Lung cancer is one of the most common and serious types of cancer, responsible for the highest number of
+            cancer-related deaths worldwide. Early detection significantly improves treatment outcomes and survival
+            rates.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
+          <div
+            class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 hover:border-medical-400">
+            <h3 class="text-2xl font-bold text-medical-600 mb-6 flex items-center">
+              <i class="fas fa-microscope mr-3"></i>Types of Lung Cancer
+            </h3>
+            <ul class="space-y-4 text-gray-700 dark:text-gray-300">
+              <li class="flex items-start">
+                <span class="text-medical-500 font-bold mr-3 mt-1">•</span>
+                <div>
+                  <strong>Non-Small Cell Lung Cancer (NSCLC):</strong> This is the most prevalent form of lung cancer,
+                  representing approximately 85% of all diagnosed cases. NSCLC generally progresses more slowly than
+                  other types of lung cancer and tends to respond better to certain treatments. It includes several
+                  subtypes based on the type of cells involved, the most common being:
+                </div>
+              </li>
+              <li class="flex items-start ml-6">
+                <span class="text-medical-500 font-bold mr-3 mt-1">•</span>
+                <div>Adenocarcinoma: Often found in the outer parts of the lungs and more common in non-smokers or
+                  former smokers.</div>
+              </li>
+              <li class="flex items-start ml-6">
+                <span class="text-medical-500 font-bold mr-3 mt-1">•</span>
+                <div>Squamous Cell Carcinoma: Usually linked to a history of smoking and typically found in the central
+                  part of the lungs.</div>
+              </li>
+              <li class="flex items-start ml-6">
+                <span class="text-medical-500 font-bold mr-3 mt-1">•</span>
+                <div>Large Cell Carcinoma: A less common type that can appear in any part of the lung and tends to grow
+                  and spread quickly.</div>
+              </li>
+              <li class="flex items-start">
+                <span class="text-medical-500 font-bold mr-3 mt-1">•</span>
+                <div>
+                  <strong>Small Cell Lung Cancer (SCLC):</strong> Accounting for about 15% of lung cancer cases, SCLC is
+                  a fast-growing and aggressive form of cancer. It tends to spread rapidly to other parts of the body,
+                  often before it is detected. This type is strongly associated with tobacco use, with the vast majority
+                  of cases occurring in current or former smokers. SCLC is typically divided into two stages:
+                </div>
+              </li>
+              <li class="flex items-start ml-6">
+                <span class="text-medical-500 font-bold mr-3 mt-1">•</span>
+                <div>Limited stage: Cancer is confined to one lung and possibly nearby lymph nodes.</div>
+              </li>
+              <li class="flex items-start ml-6">
+                <span class="text-medical-500 font-bold mr-3 mt-1">•</span>
+                <div>Extensive stage: Cancer has spread to other regions of the chest or other parts of the body.</div>
+              </li>
+            </ul>
+          </div>
+
+          <div
+            class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 hover:border-medical-400">
+            <h3 class="text-2xl font-bold text-medical-600 mb-6 flex items-center">
+              <i class="fas fa-chart-bar mr-3"></i>Key Statistics
+            </h3>
+            <div class="grid grid-cols-1 gap-6">
+              <div
+                class="bg-gradient-to-r from-medical-50 to-medical-100 dark:from-medical-900 dark:to-medical-800 rounded-xl border border-medical-200 dark:border-medical-700 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 hover:border-medical-400 flex flex-col justify-center items-center w-full max-w-[400px] mx-auto min-h-[140px] p-8">
+                <div class="text-4xl font-bold text-medical-600 dark:text-medical-400 mb-2">2M+</div>
+                <div class="text-gray-600 dark:text-gray-300 text-sm">New cases diagnosed annually worldwide</div>
+              </div>
+              <div
+                class="bg-gradient-to-r from-warning-50 to-warning-100 dark:from-warning-900 dark:to-warning-800 rounded-xl border border-warning-200 dark:border-warning-700 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 hover:border-warning-400 flex flex-col justify-center items-center w-full max-w-[400px] mx-auto min-h-[140px] p-8">
+                <div class="text-4xl font-bold text-warning-600 dark:text-warning-400 mb-2">22%</div>
+                <div class="text-gray-600 dark:text-gray-300 text-sm">Overall 5-year survival rate</div>
+              </div>
+              <div
+                class="bg-gradient-to-r from-success-50 to-success-100 dark:from-success-900 dark:to-success-800 rounded-xl border border-success-200 dark:border-success-700 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 hover:border-success-400 flex flex-col justify-center items-center w-full max-w-[400px] mx-auto min-h-[140px] p-8">
+                <div class="text-4xl font-bold text-success-600 dark:text-success-400 mb-2">60%</div>
+                <div class="text-gray-600 dark:text-gray-300 text-sm">Survival rate when caught early</div>
+              </div>
+              <!-- Important summary below statistics -->
+              <div
+                class="mt-4 p-5 rounded-xl bg-white/80 dark:bg-gray-900/80 border border-medical-100 dark:border-medical-800 shadow transition-all duration-300 hover:shadow-xl flex flex-col justify-center items-center w-full max-w-[400px] mx-auto min-h-[140px]">
+                <div
+                  class="text-lg font-semibold text-medical-700 dark:text-medical-200 mb-2 flex items-center justify-center">
+                  <i class="fas fa-info-circle mr-2"></i>Why Early Detection Matters
+                </div>
+                <div class="text-gray-700 dark:text-gray-300 text-base">
+                  Early detection of lung cancer can dramatically improve survival rates. Regular screening and
+                  awareness of risk factors are key to saving lives.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Risk Factors & Symptoms -->
+    <section class="py-20 bg-gray-50 dark:bg-gray-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <!-- Section header icons -->
+          <h2 class="text-4xl md:text-5xl font-bold gradient-text mb-6 flex items-center justify-center">
+            <i class="fas fa-exclamation-triangle mr-4 group-hover:animate-bounce transition-all"></i>Risk Factors &
+            Symptoms
+          </h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
+          <div
+            class="bg-white dark:bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 hover:border-danger-400">
+            <h3 class="text-2xl font-bold text-danger-600 mb-6 flex items-center">
+              <i class="fas fa-ban mr-3"></i>Primary Risk Factors
+            </h3>
+            <ul class="space-y-4 text-gray-700 dark:text-gray-300">
+              <li class="flex items-start">
+                <span class="text-danger-500 font-bold mr-3 mt-1">•</span>
+                <div><strong>Smoking:</strong> Causes 85% of lung cancer cases</div>
+              </li>
+              <li class="flex items-start">
+                <span class="text-danger-500 font-bold mr-3 mt-1">•</span>
+                <div><strong>Secondhand smoke:</strong> Increases risk by 20-30%</div>
+              </li>
+              <li class="flex items-start">
+                <span class="text-danger-500 font-bold mr-3 mt-1">•</span>
+                <div><strong>Radon exposure:</strong> Second leading cause of lung cancer</div>
+              </li>
+              <li class="flex items-start">
+                <span class="text-danger-500 font-bold mr-3 mt-1">•</span>
+                <div><strong>Occupational hazards:</strong> Asbestos, chemicals, dust</div>
+              </li>
+              <li class="flex items-start">
+                <span class="text-danger-500 font-bold mr-3 mt-1">•</span>
+                <div><strong>Air pollution:</strong> Long-term exposure to pollutants</div>
+              </li>
+              <li class="flex items-start">
+                <span class="text-danger-500 font-bold mr-3 mt-1">•</span>
+                <div><strong>Family history:</strong> Genetic predisposition factors</div>
+              </li>
+            </ul>
+          </div>
+
+          <div
+            class="bg-white dark:bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 hover:border-warning-400">
+            <h3 class="text-2xl font-bold text-warning-600 mb-6 flex items-center">
+              <i class="fas fa-stethoscope mr-3"></i>Early Warning Signs
+            </h3>
+            <ul class="space-y-4 text-gray-700 dark:text-gray-300">
+              <li class="flex items-start">
+                <span class="text-warning-500 font-bold mr-3 mt-1">•</span>
+                <div>Persistent cough or cough that worsens over time</div>
+              </li>
+              <li class="flex items-start">
+                <span class="text-warning-500 font-bold mr-3 mt-1">•</span>
+                <div>Chest pain or discomfort that doesn't go away</div>
+              </li>
+              <li class="flex items-start">
+                <span class="text-warning-500 font-bold mr-3 mt-1">•</span>
+                <div>Shortness of breath during normal activities</div>
+              </li>
+              <li class="flex items-start">
+                <span class="text-warning-500 font-bold mr-3 mt-1">•</span>
+                <div>Coughing up blood or rust-colored sputum</div>
+              </li>
+              <li class="flex items-start">
+                <span class="text-warning-500 font-bold mr-3 mt-1">•</span>
+                <div>Unexplained weight loss and loss of appetite</div>
+              </li>
+              <li class="flex items-start">
+                <span class="text-warning-500 font-bold mr-3 mt-1">•</span>
+                <div>Fatigue and weakness that persists</div>
+              </li>
+              <li class="flex items-start">
+                <span class="text-warning-500 font-bold mr-3 mt-1">•</span>
+                <div>Recurrent respiratory infections (pneumonia, bronchitis)</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Prevention & Early Detection -->
+    <section id="prevention" class="py-20 bg-white dark:bg-gray-900">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <!-- Section header icons -->
+          <h2 class="text-4xl md:text-5xl font-bold gradient-text mb-6 flex items-center justify-center">
+            <i class="fas fa-shield-alt mr-4 group-hover:animate-bounce transition-all"></i>Prevention & Early Detection
+          </h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
+          <div
+            class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 hover:border-success-400">
+            <h3 class="text-2xl font-bold text-success-600 mb-6 flex items-center">
+              <i class="fas fa-heart mr-3"></i>Prevention Strategies
+            </h3>
+            <ul class="space-y-4 text-gray-700 dark:text-gray-300">
+              <li class="flex items-start">
+                <span class="text-success-500 font-bold mr-3 mt-1">•</span>
+                <div><strong>Quit smoking:</strong> Risk reduces significantly over time, even for long-term smokers
+                </div>
+              </li>
+              <li class="flex items-start">
+                <span class="text-success-500 font-bold mr-3 mt-1">•</span>
+                <div><strong>Avoid secondhand smoke:</strong> Stay away from smoky environments</div>
+              </li>
+              <li class="flex items-start">
+                <span class="text-success-500 font-bold mr-3 mt-1">•</span>
+                <div><strong>Test for radon:</strong> Check and mitigate radon levels in your home</div>
+              </li>
+              <li class="flex items-start">
+                <span class="text-success-500 font-bold mr-3 mt-1">•</span>
+                <div><strong>Healthy diet:</strong> Rich in fruits, vegetables, and antioxidants</div>
+              </li>
+              <li class="flex items-start">
+                <span class="text-success-500 font-bold mr-3 mt-1">•</span>
+                <div><strong>Regular exercise:</strong> Maintain overall health and lung function</div>
+              </li>
+              <li class="flex items-start">
+                <span class="text-success-500 font-bold mr-3 mt-1">•</span>
+                <div><strong>Workplace safety:</strong> Follow safety protocols for hazardous materials</div>
+              </li>
+            </ul>
+          </div>
+
+          <div
+            class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 hover:border-medical-400">
+            <h3 class="text-2xl font-bold text-medical-600 mb-6 flex items-center">
+              <i class="fas fa-search mr-3"></i>Screening Guidelines
+            </h3>
+            <p class="mb-6 text-gray-700 dark:text-gray-300">
+              <strong>High-risk individuals should consider screening:</strong>
+            </p>
+            <ul class="space-y-4 text-gray-700 dark:text-gray-300">
+              <li class="flex items-start">
+                <span class="text-medical-500 font-bold mr-3 mt-1">•</span>
+                <div>Ages 50-80 years old with good health</div>
+              </li>
+              <li class="flex items-start">
+                <span class="text-medical-500 font-bold mr-3 mt-1">•</span>
+                <div>20+ pack-year smoking history</div>
+              </li>
+              <li class="flex items-start">
+                <span class="text-medical-500 font-bold mr-3 mt-1">•</span>
+                <div>Current smokers or quit within 15 years</div>
+              </li>
+              <li class="flex items-start">
+                <span class="text-medical-500 font-bold mr-3 mt-1">•</span>
+                <div>Annual low-dose CT scans recommended</div>
+              </li>
+              <li class="flex items-start">
+                <span class="text-medical-500 font-bold mr-3 mt-1">•</span>
+                <div>Always discuss with healthcare provider first</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About AI Tool -->
+    <section class="py-20 bg-gray-50 dark:bg-gray-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <!-- Section header icons -->
+          <h2 class="text-4xl md:text-5xl font-bold gradient-text mb-6 flex items-center justify-center">
+            <i class="fas fa-robot mr-4 group-hover:animate-bounce transition-all"></i>About This AI Tool
+          </h2>
+          <p class="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed">
+            Our AI-powered screening tool uses advanced machine learning algorithms trained on thousands of CT scan
+            images to provide preliminary analysis and support early detection efforts.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
+          <div
+            class="bg-white dark:bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 hover:border-medical-400">
+            <h3 class="text-2xl font-bold text-medical-600 mb-6 flex items-center">
+              <i class="fas fa-cogs mr-3"></i>Capabilities
+            </h3>
+            <ul class="space-y-4 text-gray-700 dark:text-gray-300">
+              <li class="flex items-start">
+                <span class="text-medical-500 font-bold mr-3 mt-1">•</span>
+                <div>Rapid preliminary screening of CT scan images</div>
+              </li>
+              <li class="flex items-start">
+                <span class="text-medical-500 font-bold mr-3 mt-1">•</span>
+                <div>Advanced pattern recognition technology</div>
+              </li>
+              <li class="flex items-start">
+                <span class="text-medical-500 font-bold mr-3 mt-1">•</span>
+                <div>Highlights areas that may require professional attention</div>
+              </li>
+              <li class="flex items-start">
+                <span class="text-medical-500 font-bold mr-3 mt-1">•</span>
+                <div>Supports medical professionals in their analysis</div>
+              </li>
+              <li class="flex items-start">
+                <span class="text-medical-500 font-bold mr-3 mt-1">•</span>
+                <div>24/7 availability for immediate screening</div>
+              </li>
+            </ul>
+          </div>
+
+          <div
+            class="bg-white dark:bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 hover:border-success-400">
+            <h3 class="text-2xl font-bold text-success-600 mb-6 flex items-center">
+              <i class="fas fa-thumbs-up mr-3"></i>Benefits
+            </h3>
+            <ul class="space-y-4 text-gray-700 dark:text-gray-300">
+              <li class="flex items-start">
+                <span class="text-success-500 font-bold mr-3 mt-1">•</span>
+                <div>Quick initial assessment within seconds</div>
+              </li>
+              <li class="flex items-start">
+                <span class="text-success-500 font-bold mr-3 mt-1">•</span>
+                <div>Consistent and objective analysis</div>
+              </li>
+              <li class="flex items-start">
+                <span class="text-success-500 font-bold mr-3 mt-1">•</span>
+                <div>Accessible anytime, anywhere</div>
+              </li>
+              <li class="flex items-start">
+                <span class="text-success-500 font-bold mr-3 mt-1">•</span>
+                <div>Supports early detection initiatives</div>
+              </li>
+              <li class="flex items-start">
+                <span class="text-success-500 font-bold mr-3 mt-1">•</span>
+                <div>Helps prioritize urgent cases</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Medical Disclaimer -->
+    <section id="disclaimer" class="py-20 bg-white dark:bg-gray-900">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          class="glass-effect rounded-3xl p-8 md:p-12 border-2 border-danger-200 dark:border-danger-700 shadow-2xl animate-fade-in"
+          style="animation-delay:0.2s;">
+          <div class="text-center mb-12">
+            <!-- Section header icons -->
+            <h2
+              class="text-4xl md:text-5xl font-bold text-danger-600 dark:text-danger-400 mb-6 flex items-center justify-center">
+              <i class="fas fa-exclamation-triangle mr-4 group-hover:animate-pulse transition-all"></i>Important Medical
+              Disclaimer
+            </h2>
+          </div>
+          <div
+            class="bg-white dark:bg-gray-800 rounded-2xl p-8 mb-8 border-l-4 border-danger-500 shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 hover:border-danger-400 bg-white/90 dark:bg-gray-800/90">
+            <h4 class="text-2xl font-bold text-danger-600 dark:text-danger-400 mb-4 flex items-center">
+              <i class="fas fa-user-md mr-3"></i>This is NOT a Medical Diagnosis
+            </h4>
+            <p class="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
+              This AI tool is designed for educational and preliminary screening purposes only. It should never replace
+              professional medical consultation, diagnosis, or treatment by qualified healthcare providers.
+            </p>
+          </div>
+          <div class="grid md:grid-cols-2 gap-8 mb-8">
+            <div
+              class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 hover:border-danger-400 bg-white/90 dark:bg-gray-800/90">
+              <h3 class="text-2xl font-bold text-danger-600 dark:text-danger-400 mb-6 flex items-center">
+                <i class="fas fa-exclamation-circle mr-3"></i>Limitations
+              </h3>
+              <ul class="space-y-4 text-gray-700 dark:text-gray-300">
+                <li class="flex items-start">
+                  <span class="text-danger-500 font-bold mr-3 mt-1">•</span>
+                  <div>AI predictions are not 100% accurate</div>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-danger-500 font-bold mr-3 mt-1">•</span>
+                  <div>False positives and negatives can occur</div>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-danger-500 font-bold mr-3 mt-1">•</span>
+                  <div>Cannot detect all types of lung conditions</div>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-danger-500 font-bold mr-3 mt-1">•</span>
+                  <div>Image quality significantly affects accuracy</div>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-danger-500 font-bold mr-3 mt-1">•</span>
+                  <div>Not a substitute for professional medical imaging</div>
+                </li>
+              </ul>
+            </div>
+            <div
+              class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 hover:border-medical-400 bg-white/90 dark:bg-gray-800/90">
+              <h3 class="text-2xl font-bold text-medical-600 dark:text-medical-400 mb-6 flex items-center">
+                <i class="fas fa-hospital mr-3"></i>Seek Professional Help
+              </h3>
+              <ul class="space-y-4 text-gray-700 dark:text-gray-300">
+                <li class="flex items-start">
+                  <span class="text-medical-500 font-bold mr-3 mt-1">•</span>
+                  <div>Always consult a qualified physician for proper diagnosis</div>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-medical-500 font-bold mr-3 mt-1">•</span>
+                  <div>Get professional medical imaging and interpretation</div>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-medical-500 font-bold mr-3 mt-1">•</span>
+                  <div>Discuss any symptoms with your healthcare provider</div>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-medical-500 font-bold mr-3 mt-1">•</span>
+                  <div>Follow recommended screening guidelines for your age group</div>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-medical-500 font-bold mr-3 mt-1">•</span>
+                  <div>Don't delay seeking medical attention for concerning symptoms</div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div
+            class="bg-gradient-to-r from-danger-100 to-red-100 dark:from-danger-800 dark:to-red-800 rounded-2xl p-8 border-l-4 border-danger-500 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 hover:border-danger-400 animate-pulse">
+            <h4 class="text-2xl font-bold text-danger-600 dark:text-danger-400 mb-4 flex items-center">
+              <i class="fas fa-ambulance mr-3"></i>Emergency Situations
+            </h4>
+            <p class="text-gray-800 dark:text-gray-200 text-lg leading-relaxed font-semibold">
+              <strong>If you experience severe chest pain, difficulty breathing, coughing up blood, or other serious
+                symptoms, seek immediate medical attention. Call emergency services or go to the nearest emergency
+                room.</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <h4 class="text-2xl font-bold gradient-text mb-4">
+          <i class="fas fa-lungs mr-3"></i>BreatheEasy - Advanced Lung Cancer Detection
+        </h4>
+        <p class="text-gray-600 dark:text-gray-300 mb-6 text-lg">
+          Supporting early detection through artificial intelligence technology
+        </p>
+        <div class="text-gray-500 dark:text-gray-400 text-sm space-y-2">
+          <p>
+            <i class="fas fa-copyright mr-2"></i>2025 BreatheEasy. All rights reserved.
+            This tool is for educational purposes only and should not replace professional medical advice.
+          </p>
+          <p>
+            Always consult with qualified healthcare professionals for medical diagnosis and treatment.
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Theme Toggle Function
+    function toggleTheme() {
+      const body = document.documentElement;
+      const themeIcon = document.getElementById('theme-icon');
+
+      if (body.classList.contains('dark')) {
+        body.classList.remove('dark');
+        themeIcon.className = 'fas fa-moon text-gray-600';
+        localStorage.setItem('theme', 'light');
+      } else {
+        body.classList.add('dark');
+        themeIcon.className = 'fas fa-sun text-gray-300';
+        localStorage.setItem('theme', 'dark');
+      }
+    }
+
+    // Load saved theme and initialize event listeners
+    document.addEventListener('DOMContentLoaded', function () {
+      const savedTheme = localStorage.getItem('theme');
+      const themeIcon = document.getElementById('theme-icon');
+
+      if (savedTheme === 'dark') {
+        document.documentElement.classList.add('dark');
+        themeIcon.className = 'fas fa-sun text-gray-300';
+      } else {
+        document.documentElement.classList.remove('dark');
+        themeIcon.className = 'fas fa-moon text-gray-600';
+      }
+
+      // Initialize AI tool event listeners
+      document.getElementById("predictBtn").addEventListener("click", predict);
+      document.getElementById("imageInput").addEventListener("change", showPreview);
+    });
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Show image preview and file info
+    function showPreview(event) {
+      const file = event.target.files[0];
+      const preview = document.getElementById("preview");
+      const predictBtn = document.getElementById("predictBtn");
+      const fileInfo = document.getElementById("fileInfo");
+      const fileName = document.getElementById("fileName");
+
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          preview.src = e.target.result;
+          preview.classList.remove("hidden");
+          predictBtn.classList.remove("hidden");
+
+          // Show file info
+          fileName.textContent = `📄 ${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)`;
+          fileInfo.classList.remove("hidden");
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    // AI Prediction function
+    async function predict(event) {
+      event.preventDefault();
+
+      const fileInput = document.getElementById("imageInput");
+      const resultCard = document.getElementById("resultCard");
+      const resultText = document.getElementById("resultText");
+      const spinner = document.getElementById("spinner");
+      const predictBtn = document.getElementById("predictBtn");
+
+      if (!fileInput.files.length) {
+        alert("Please select a CT scan image.");
+        return;
+      }
+
+      predictBtn.disabled = true;
+      resultCard.classList.add("hidden");
+      spinner.classList.remove("hidden");
+
+      const formData = new FormData();
+      formData.append("image", fileInput.files[0]);
+
+      try {
+        const res = await fetch("http://127.0.0.1:5000/predict", {
+          method: "POST",
+          body: formData,
+        });
+
+        const data = await res.json();
+
+        spinner.classList.add("hidden");
+
+        const predictionClass = data.prediction;
+        const confidence = data.confidence;
+        const isNormal = predictionClass.toLowerCase() === 'normal';
+
+        let icon, colorClass, borderColor;
+        if (isNormal) {
+          icon = '✅';
+          colorClass = 'text-success-600 dark:text-success-400';
+          borderColor = 'border-success-200 dark:border-success-700';
+        } else {
+          icon = '⚠️';
+          colorClass = 'text-danger-600 dark:text-danger-400';
+          borderColor = 'border-danger-200 dark:border-danger-700';
+        }
+
+        resultText.className = `result-text ${colorClass} font-semibold text-lg`;
+
+        resultText.innerHTML = `
+          <div class="mb-4">
+            <div class="text-2xl font-bold mb-1">${icon} Prediction: ${predictionClass}</div>
+            <div class="text-lg font-semibold ${colorClass}">Confidence: ${confidence}%</div>
+          </div>
+          <div class="bg-gradient-to-r from-danger-50 to-red-50 dark:from-danger-900 dark:to-red-900 rounded-2xl p-6 border-2 ${borderColor}">
+            <div class="text-danger-600 dark:text-danger-400 font-bold mb-3 flex items-center">
+              <i class="fas fa-exclamation-triangle mr-2"></i>IMPORTANT MEDICAL DISCLAIMER
+            </div>
+            <p class="text-gray-800 dark:text-gray-200 font-semibold leading-relaxed">
+              <strong>This AI analysis is for preliminary screening purposes only and should NEVER replace professional medical consultation.</strong>
+              Seeking immediate professional medical evaluation is the foremost priority. Only qualified healthcare professionals can provide accurate diagnosis and appropriate treatment recommendations.
+            </p>
+          </div>
+        `;
+
+        resultCard.classList.remove("hidden");
+
+      } catch (err) {
+        spinner.classList.add("hidden");
+        alert("Error: " + err.message);
+      } finally {
+        predictBtn.disabled = false;
+      }
+    }
+
+    // Reset the entire application
+    function resetApp() {
+      document.getElementById("imageInput").value = "";
+      document.getElementById("preview").classList.add("hidden");
+      document.getElementById("predictBtn").classList.add("hidden");
+      document.getElementById("resultCard").classList.add("hidden");
+      document.getElementById("fileInfo").classList.add("hidden");
+    }
+
+    // Add another image while keeping results visible
+    function addAnother() {
+      document.getElementById("imageInput").value = "";
+      document.getElementById("preview").classList.add("hidden");
+      document.getElementById("predictBtn").classList.add("hidden");
+      document.getElementById("fileInfo").classList.add("hidden");
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+
+  <script>
+    // Theme Toggle Function
+    function toggleTheme() {
+      const body = document.documentElement;
+      const themeIcon = document.getElementById('theme-icon');
+
+      if (body.classList.contains('dark')) {
+        body.classList.remove('dark');
+        themeIcon.className = 'fas fa-moon text-gray-600';
+        localStorage.setItem('theme', 'light');
+      } else {
+        body.classList.add('dark');
+        themeIcon.className = 'fas fa-sun text-gray-300';
+        localStorage.setItem('theme', 'dark');
+      }
+    }
+
+    // Load saved theme and initialize event listeners
+    document.addEventListener('DOMContentLoaded', function () {
+      const savedTheme = localStorage.getItem('theme');
+      const themeIcon = document.getElementById('theme-icon');
+
+      if (savedTheme === 'dark') {
+        document.documentElement.classList.add('dark');
+        themeIcon.className = 'fas fa-sun text-gray-300';
+      } else {
+        document.documentElement.classList.remove('dark');
+        themeIcon.className = 'fas fa-moon text-gray-600';
+      }
+
+      // Initialize AI tool event listeners
+      document.getElementById("predictBtn").addEventListener("click", predict);
+      document.getElementById("imageInput").addEventListener("change", showPreview);
+    });
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Show image preview and file info
+    function showPreview(event) {
+      const file = event.target.files[0];
+      const preview = document.getElementById("preview");
+      const predictBtn = document.getElementById("predictBtn");
+      const fileInfo = document.getElementById("fileInfo");
+      const fileName = document.getElementById("fileName");
+
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          preview.src = e.target.result;
+          preview.classList.remove("hidden");
+          predictBtn.classList.remove("hidden");
+
+          // Show file info
+          fileName.textContent = `📄 ${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)`;
+          fileInfo.classList.remove("hidden");
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    // AI Prediction function
+    async function predict(event) {
+      event.preventDefault();
+
+      const fileInput = document.getElementById("imageInput");
+      const resultCard = document.getElementById("resultCard");
+      const resultText = document.getElementById("resultText");
+      const spinner = document.getElementById("spinner");
+      const predictBtn = document.getElementById("predictBtn");
+
+      if (!fileInput.files.length) {
+        alert("Please select a CT scan image.");
+        return;
+      }
+
+      predictBtn.disabled = true;
+      resultCard.classList.add("hidden");
+      spinner.classList.remove("hidden");
+
+      const formData = new FormData();
+      formData.append("image", fileInput.files[0]);
+
+      try {
+        const res = await fetch("http://127.0.0.1:5000/predict", {
+          method: "POST",
+          body: formData,
+        });
+
+        const data = await res.json();
+
+        spinner.classList.add("hidden");
+
+        const predictionClass = data.prediction;
+        const confidence = data.confidence;
+        const isNormal = predictionClass.toLowerCase() === 'normal';
+
+        let icon, colorClass, borderColor;
+        if (isNormal) {
+          icon = '✅';
+          colorClass = 'text-success-600 dark:text-success-400';
+          borderColor = 'border-success-200 dark:border-success-700';
+        } else {
+          icon = '⚠️';
+          colorClass = 'text-danger-600 dark:text-danger-400';
+          borderColor = 'border-danger-200 dark:border-danger-700';
+        }
+
+        resultText.className = `result-text ${colorClass} font-semibold text-lg`;
+
+        resultText.innerHTML = `
+          <div class="mb-4">
+            <div class="text-2xl font-bold mb-1">${icon} Prediction: ${predictionClass}</div>
+            <div class="text-lg font-semibold ${colorClass}">Confidence: ${confidence}%</div>
+          </div>
+          <div class="bg-gradient-to-r from-danger-50 to-red-50 dark:from-danger-900 dark:to-red-900 rounded-2xl p-6 border-2 ${borderColor}">
+            <div class="text-danger-600 dark:text-danger-400 font-bold mb-3 flex items-center">
+              <i class="fas fa-exclamation-triangle mr-2"></i>IMPORTANT MEDICAL DISCLAIMER
+            </div>
+            <p class="text-gray-800 dark:text-gray-200 font-semibold leading-relaxed">
+              <strong>This AI analysis is for preliminary screening purposes only and should NEVER replace professional medical consultation.</strong>
+              Seeking immediate professional medical evaluation is the foremost priority. Only qualified healthcare professionals can provide accurate diagnosis and appropriate treatment recommendations.
+            </p>
+          </div>
+        `;
+
+        resultCard.classList.remove("hidden");
+
+      } catch (err) {
+        spinner.classList.add("hidden");
+        alert("Error: " + err.message);
+      } finally {
+        predictBtn.disabled = false;
+      }
+    }
+
+    // Reset the entire application
+    function resetApp() {
+      document.getElementById("imageInput").value = "";
+      document.getElementById("preview").classList.add("hidden");
+      document.getElementById("predictBtn").classList.add("hidden");
+      document.getElementById("resultCard").classList.add("hidden");
+      document.getElementById("fileInfo").classList.add("hidden");
+    }
+
+    // Add another image while keeping results visible
+    function addAnother() {
+      document.getElementById("imageInput").value = "";
+      document.getElementById("preview").classList.add("hidden");
+      document.getElementById("predictBtn").classList.add("hidden");
+      document.getElementById("fileInfo").classList.add("hidden");
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+  </script>
+</body>
+
+</html>

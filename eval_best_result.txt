@@ -1,0 +1,22 @@
+=== Classification Report (lung_model_6class_best.pth) ===
+
+                         precision    recall  f1-score   support
+
+                 Normal     0.8333    0.6098    0.7042       123
+                 Benign     0.0000    0.0000    0.0000        11
+         Adenocarcinoma     0.6522    0.1250    0.2098       120
+   Large Cell Carcinoma     0.4188    0.9608    0.5833        51
+Squamous Cell Carcinoma     0.5484    0.7556    0.6355        90
+              Malignant     0.9157    0.9500    0.9325        80
+
+               accuracy                         0.5958       475
+              macro avg     0.5614    0.5668    0.5109       475
+           weighted avg     0.6836    0.5958    0.5755       475
+
+=== Confusion Matrix ===
+[[75 38  3  0  0  7]
+ [11  0  0  0  0  0]
+ [ 0  0 15 51 54  0]
+ [ 0  0  0 49  2  0]
+ [ 0  0  5 17 68  0]
+ [ 4  0  0  0  0 76]]
